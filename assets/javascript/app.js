@@ -35,5 +35,13 @@ $("#add-train").on("click", function (event) {
     })
 })
 database.ref("/train-schedule").on("child_added", function(childSnapshot){
-    
-})
+    var newRow = $("<tr>")
+    newRow.append($("<td>").text(childSnapshot.val().trainName))
+    newRow.append($("<td>").text(childSnapshot.val().destination))
+    newRow.append($("<td>").text(childSnapshot.val().frequency))
+    newRow.append($("<td>").text("placeholder"))
+    newRow.append($("<td>").text("placeholder"))
+    $("tbody").append(newRow)
+}, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+    })
