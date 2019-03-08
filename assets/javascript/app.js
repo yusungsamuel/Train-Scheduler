@@ -28,13 +28,13 @@ $("#add-train").on("click", function (event) {
     frequency = $("#frequency").val().trim()
 
     database.ref("/train-schedule").push({
-        trainName : trainName,
-        destination : destination,
-        trainTime : trainTime,
-        frequency : frequency
+        trainName: trainName,
+        destination: destination,
+        trainTime: trainTime,
+        frequency: frequency
     })
 })
-database.ref("/train-schedule").on("child_added", function(childSnapshot){
+database.ref("/train-schedule").on("child_added", function (childSnapshot) {
     var newRow = $("<tr>")
     //appending train name to the row
     newRow.append($("<td>").text(childSnapshot.val().trainName))
@@ -42,22 +42,27 @@ database.ref("/train-schedule").on("child_added", function(childSnapshot){
     newRow.append($("<td>").text(childSnapshot.val().destination))
     //append frequency to row
     newRow.append($("<td>").text(childSnapshot.val().frequency))
-    
+
+
+    //confirm that what ever time the user enter into the input, it will be converted to military time
     var convertedTrainTime = moment(childSnapshot.val().trainTime, "HH:mm")
     console.log(convertedTrainTime)
-    
     //the difference in minute between now and the start time of the train
     var timeDiff = moment().diff(moment(convertedTrainTime), "minutes")
     //The remainder from timeDiff divided by the frequency shows how much time it has been from the previous train. Subtract that from the frequncy will tell you how much longer from the next train
     var minuteFromNextArrival = (childSnapshot.val().frequency) - (timeDiff % (childSnapshot.val().frequency))
     console.log(minuteFromNextArrival)
-    console.log(moment())
+    //append minutes from next arrival to row
+    var timeOfNextArrival =  moment().add(minuteFromNextArrival, "minutes").format("hh:mm A")
+    console.log("Arrival Time: " + timeOfNextArrival)
 
 
-    newRow.append($("<td>").text(moment().startOf("day")))
+    newRow.append($("<td>").text(timeOfNextArrival))
+
+    
     newRow.append($("<td>").text(minuteFromNextArrival))
     $("tbody").append(newRow)
-}, function(errorObject) {
+}, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
 
