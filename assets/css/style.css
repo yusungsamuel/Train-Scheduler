@@ -1,0 +1,24 @@
+.top-box {
+    background: rgba(255, 248, 220, 0)
+}
+
+.top-box::after {
+    background-image: url("http://www.unmissablejapan.com/underground/journeys-below-ground-images/tokyo-subway-map.gif");
+    background-repeat: no repeat;
+    background-size: cover;
+    background-position: center center;
+    content: "";
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
+
+.text {
+    font-family: 'Kenia', cursive;
+    font: bold;
+
+}

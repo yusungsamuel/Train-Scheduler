@@ -33,6 +33,10 @@ $("#add-train").on("click", function (event) {
         trainTime: trainTime,
         frequency: frequency
     })
+    $("#train-name").val("")
+    $("#destination").val("")
+    $("#train-time").val("")
+    $("#frequency").val("")
 })
 database.ref("/train-schedule").on("child_added", function (childSnapshot) {
     var newRow = $("<tr>")
