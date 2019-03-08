@@ -36,12 +36,28 @@ $("#add-train").on("click", function (event) {
 })
 database.ref("/train-schedule").on("child_added", function(childSnapshot){
     var newRow = $("<tr>")
+    //appending train name to the row
     newRow.append($("<td>").text(childSnapshot.val().trainName))
+    //append destination to the row
     newRow.append($("<td>").text(childSnapshot.val().destination))
+    //append frequency to row
     newRow.append($("<td>").text(childSnapshot.val().frequency))
-    newRow.append($("<td>").text("placeholder"))
-    newRow.append($("<td>").text("placeholder"))
+    
+    var convertedTrainTime = moment(childSnapshot.val().trainTime, "HH:mm")
+    console.log(convertedTrainTime)
+    
+    //the difference in minute between now and the start time of the train
+    var timeDiff = moment().diff(moment(convertedTrainTime), "minutes")
+    //The remainder from timeDiff divided by the frequency shows how much time it has been from the previous train. Subtract that from the frequncy will tell you how much longer from the next train
+    var minuteFromNextArrival = (childSnapshot.val().frequency) - (timeDiff % (childSnapshot.val().frequency))
+    console.log(minuteFromNextArrival)
+    console.log(moment())
+
+
+    newRow.append($("<td>").text(moment().startOf("day")))
+    newRow.append($("<td>").text(minuteFromNextArrival))
     $("tbody").append(newRow)
 }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
-    })
+});
+
