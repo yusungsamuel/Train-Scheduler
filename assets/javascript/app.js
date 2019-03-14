@@ -1,11 +1,11 @@
 //configure to my firebase database
 var config = {
-    apiKey: "AIzaSyCQwHI33aLIXjZFR0yDaSjeMMiGgPf8EUY",
-    authDomain: "tobi-s-toy.firebaseapp.com",
-    databaseURL: "https://tobi-s-toy.firebaseio.com",
-    projectId: "tobi-s-toy",
-    storageBucket: "tobi-s-toy.appspot.com",
-    messagingSenderId: "102493427088"
+    apiKey: "AIzaSyBkQ0A5DgZA21v-vML7fjKb9wGGjnghRPU",
+    authDomain: "train-schedule-c44e1.firebaseapp.com",
+    databaseURL: "https://train-schedule-c44e1.firebaseio.com",
+    projectId: "train-schedule-c44e1",
+    storageBucket: "",
+    messagingSenderId: "441238627127"
 };
 
 firebase.initializeApp(config);
